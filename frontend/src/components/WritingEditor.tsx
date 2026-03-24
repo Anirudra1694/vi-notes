@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import "./WritingEditor.css";
+import { useNavigate } from "react-router-dom";
 
 const WritingEditor = () => {
   const [text, setText] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     textareaRef.current?.focus();
@@ -11,6 +13,11 @@ const WritingEditor = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
+  };
+
+  const handleLogout = () => {
+  localStorage.removeItem("token");
+  navigate("/login");
   };
 
   return (
@@ -28,6 +35,8 @@ const WritingEditor = () => {
       <div className="editor-meta">
         Characters: {text.length}
       </div>
+
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };
