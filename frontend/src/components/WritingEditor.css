@@ -1,0 +1,36 @@
+.editor-container {
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 20px;
+}
+
+.editor-title {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: #090000;
+  font-family: "Georgia", "Times New Roman", serif;
+}
+
+.editor-textarea {
+  width: 100%;
+  min-height: 400px;
+  padding: 14px;
+  font-size: 16px;
+  line-height: 1.6;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  outline: none;
+  font-family: "Georgia", "Times New Roman", serif;
+}
+
+.editor-textarea:focus {
+  border-color: #4a90e2;
+}
+
+.editor-meta {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
+  text-align: right;
+}
