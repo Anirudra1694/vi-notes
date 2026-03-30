@@ -7,9 +7,10 @@ const SessionsList = () => {
   const [menuOpen, setMenuOpen] = useState<string | null>(null);
   const navigate = useNavigate();
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const BASE_URL = import.meta.env.VITE_API_URL;
 
   const fetchSessions = async () => {
-    const res = await fetch("http://localhost:5000/api/sessions", {
+    const res = await fetch(`${BASE_URL}/api/sessions`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -24,7 +25,7 @@ const SessionsList = () => {
   }, []);
 
   const createSession = async () => {
-    const res = await fetch("http://localhost:5000/api/sessions", {
+    const res = await fetch(`${BASE_URL}/api/sessions`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -36,7 +37,7 @@ const SessionsList = () => {
   };
 
   const deleteSession = async (id: string) => {
-    await fetch(`http://localhost:5000/api/sessions/${id}`, {
+    await fetch(`${BASE_URL}/api/sessions/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -47,7 +48,7 @@ const SessionsList = () => {
   };
 
   const renameSession = async (id: string, title: string) => {
-    await fetch(`http://localhost:5000/api/sessions/${id}`, {
+    await fetch(`${BASE_URL}/api/sessions/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

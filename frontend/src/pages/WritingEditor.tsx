@@ -8,6 +8,7 @@ const WritingEditor = () => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const navigate = useNavigate();
   const { id } = useParams();
+  const BASE_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     textareaRef.current?.focus();
@@ -16,7 +17,7 @@ const WritingEditor = () => {
   useEffect(() => {
   if (!id) return;
 
-  fetch(`http://localhost:5000/api/sessions/${id}`, {
+  fetch(`${BASE_URL}/api/sessions/${id}`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
@@ -41,7 +42,7 @@ const WritingEditor = () => {
     text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
 
   const handleSave = async () => {
-    await fetch(`http://localhost:5000/api/sessions/${id}`, {
+    await fetch(`${BASE_URL}/api/sessions/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
