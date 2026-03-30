@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../services/authService";
+import "./Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -15,41 +16,61 @@ const Login = () => {
 
       if (data.token) {
         localStorage.setItem("token", data.token);
-        navigate("/");
+        navigate("/sessions");
       } else {
         alert(data.message || "Login failed");
       }
-    } catch (error) {
-      alert("Server error");
+    } catch (error: any) {
       console.error(error);
+      alert(error.message || "Server error");
     }
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: "100px auto" }}>
-      <h2>Login</h2>
+    <div className="login-container">
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <br /><br />
+      <div className="login-header">
+        <h1 className="app-title">Welcome to Vi-Notes</h1>
+        <p className="app-subtitle">
+          Simple • Fast • Focused Writing
+        </p>
+      </div>
+      <br/> <br/>
+      <div className="login-box">
+        <h2 className="login-title">Login</h2>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <br /><br />
+        <form onSubmit={handleSubmit} className="login-form">
+          
+          <label>Email</label>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <button type="submit">Login</button>
-      </form>
+          <label>Password</label>
+          <input
+            type="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <button type="submit" className="login-btn">
+            Login
+          </button>
+        </form>
+
+        <p className="register-text">
+          Don't have an account?{" "}
+          <Link to="/register" className="register-link">
+            Register here
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };
